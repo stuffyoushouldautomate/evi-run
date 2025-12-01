@@ -1,17 +1,17 @@
 start_text = 
-    I am Evi — a virtual technomage and your AI agent... 🦄👻
+    I am Bulldozer — your AI-powered labor union research assistant! 🏗️💪
 
-    My capabilities include (but are not limited to):
-    - solving complex, multi-step tasks
-    - conducting deep research
-    - intelligent web search
-    - document and image analysis
-    - image generation
-    - DEX analytics and Solana token swap
+    My capabilities include:
+    - analyzing NJ and NY labor union insights
+    - conducting deep research on labor organizing opportunities
+    - intelligent web search from reputable sources
+    - document and data analysis
+    - tracking construction companies and labor relations
+    - monitoring OSHA compliance and regulatory issues
     - task scheduler
     - memory management
 
-    Simply write your requests in the chat using natural language or send voice messages to start interacting! 🔮✨
+    Simply write your requests in the chat using natural language or send voice messages to start interacting! 🔨✨
 
     ⚠️ Tip! Periodically reset the conversation context with the /new command — this will help save tokens and speed up request processing.
 

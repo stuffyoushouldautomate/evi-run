@@ -37,4 +37,4 @@ LANGUAGE_FALLBACKS = {
 }
 
 # Application host address (do not modify)
-HOST_ADDRESS = 'https://evi.run'
+HOST_ADDRESS = 'https://bulldozer.run'
