@@ -16,6 +16,15 @@ from bot.agents_tools.tools import (image_gen_tool,
                                     list_tasks_tool,
                                     get_task_details_tool)
 from bot.agents_tools.mcp_servers import get_jupiter_server
+from bot.agents_tools.labor_tools import (
+    search_osha_violations,
+    get_osha_company_summary,
+    check_available_labor_tools,
+    search_dol_benefits,
+    search_court_cases,
+    search_political_contributions,
+    search_corporate_structure
+)
 
 load_dotenv()
 
@@ -162,9 +171,14 @@ async def create_main_agent(user_id: int, mcp_server_1: MCPServerStdio, knowledg
         - search_conversation_memory: Use to recall prior conversations, user preferences, details about the user and extract information from files uploaded by the user.
         - web: Use it to search for NJ and NY labor union information, construction companies, OSHA violations, labor organizing opportunities, and related data. ALWAYS include "New Jersey" or "New York" in searches. Prioritize reputable sources as defined in SOURCE CREDIBILITY section.
         - deep_knowledge: Use it for in-depth research on NJ and NY labor organizing opportunities, construction companies, and corporate research. Focus exclusively on NJ/NY and use only reputable sources. Give the tool's report to the user as close to the original as possible: do not generalize, shorten, or change the style. Be sure to include key sources and links from the report.
+        - search_osha_violations: Direct access to OSHA API for workplace violations (requires user credential). Use when user asks for OSHA data on specific companies in NJ/NY.
+        - get_osha_company_summary: Quick OSHA summary for a company (requires user credential).
+        - check_available_labor_tools: Check which credential-based tools the user has enabled.
+        - search_dol_benefits, search_court_cases, search_political_contributions, search_corporate_structure: Additional credential-based tools (coming soon).
         🚫 image_gen_tool, token_swap, and dex_analytics are DISABLED for labor union research focus.
-        ✅ For NJ/NY labor data — use web and deep_knowledge with geographic and source filters applied.
+        ✅ For NJ/NY labor data — use web and deep_knowledge with geographic and source filters applied, OR use credential-based tools for direct API access when available.
         ⚠️ All research must be filtered for NJ/NY relevance and source credibility.
+        💡 If user asks for data that requires credentials (OSHA, DOL, PACER, FEC, etc.) and they haven't configured them, inform them about /add_credential command.
 
         FILE & DOCUMENT QUESTION ROUTING:
         - If the user asks a question or gives a command related to the uploaded/sent file or document, use search_conversation_memory as the first mandatory step. If there is no data about the requested file or document, inform the user about it.
@@ -200,6 +214,14 @@ async def create_main_agent(user_id: int, mcp_server_1: MCPServerStdio, knowledg
                 tool_name="tasks_scheduler",
                 tool_description="Use this to schedule and modify user tasks, including creating a task, getting a task list, getting task details, editing a task, deleting a task. At the user's request, send information to the tool containing a clear and complete description of the task, the time of its completion, including the user's time zone and the frequency of the task (be sure to specify: once, daily or interval). Never send tasks to the scheduler that need to be completed immediately. Send tasks to the scheduler only when the user explicitly asks you to schedule something.",
             ),
+            # Labor research tools (credential-based)
+            search_osha_violations,
+            get_osha_company_summary,
+            check_available_labor_tools,
+            search_dol_benefits,
+            search_court_cases,
+            search_political_contributions,
+            search_corporate_structure,
         ],
     )
 

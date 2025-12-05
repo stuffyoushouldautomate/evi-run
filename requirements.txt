@@ -76,3 +76,4 @@ uvicorn==0.34.3
 watchdog==2.3.1
 websockets==15.0.1
 yarl==1.20.0
+cryptography==42.0.0

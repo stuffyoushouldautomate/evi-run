@@ -139,6 +139,20 @@ class UserTasks(Base):
     last_executed = Column(TIMESTAMP(timezone=True), server_onupdate=func.now(), nullable=True)
 
 
+class UserCredential(Base):
+    __tablename__ = 'user_credentials'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(BigInteger, ForeignKey('users.telegram_id'))
+    service_name = Column(String(50), nullable=False)  # 'osha_api', 'dol_efast', 'pacer', etc.
+    credential_type = Column(String(20), nullable=False)  # 'api_key', 'oauth', 'basic_auth'
+    encrypted_credentials = Column(Text, nullable=False)  # JSON encrypted with Fernet
+    is_active = Column(Boolean, default=True)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now())
+    updated_at = Column(TIMESTAMP(timezone=True), server_onupdate=func.now())
+    last_used = Column(TIMESTAMP(timezone=True), nullable=True)
+
+
 
 
 
